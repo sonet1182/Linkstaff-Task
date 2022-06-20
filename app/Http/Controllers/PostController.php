@@ -60,7 +60,6 @@ class PostController extends Controller
         $following_pages = PageFollowing::select('page_id')->where('follower_id',Auth::user()->id)->get();
         $following_persons = PersonFollowing::select('person_id')->where('follower_id',Auth::user()->id)->get();
 
-        // $posts = Post::whereIn('person_id',$following_pages)->latest()->get();
         $posts = Post::whereIn('page_id',$following_pages)->orWhereIn('person_id',$following_persons)->latest()->get();
 
         return response()->json([
